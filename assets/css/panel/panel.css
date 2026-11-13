@@ -1,0 +1,1112 @@
+/* ProBillar — panel de mesas (mesaejemplo) */
+:root {
+      --bg-main: #0f1216;
+      --card-bg: #1a1e26;
+      --accent-green: #2ecc71;
+      --accent-gold: #f1c40f;
+      --accent-red: #e74c3c;
+      --accent-blue: #3498db;
+      --accent-purple: #9b59b6;
+      --text-main: #f5f6fa;
+      --text-muted: #8c96a6;
+      --border-color: #2c3240;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rate-info {
+      font-size: 0.9rem;
+      color: var(--accent-gold);
+      background: rgba(241, 196, 15, 0.1);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(241, 196, 15, 0.3);
+    }
+
+    .btn-back, .btn-close-box {
+      background: var(--card-bg);
+      color: var(--text-main);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-back:hover { background: #252a36; }
+    .btn-close-box { background: var(--accent-red); color: white; border: none; }
+    .btn-close-box:hover { background: #c0392b; }
+
+    /* CONTENEDOR DE NOTIFICACIONES */
+    #notification-container {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .alert-banner {
+      background: rgba(231, 76, 60, 0.15);
+      border: 1px solid var(--accent-red);
+      color: #ff6b6b;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 20px;
+      flex: 1;
+    }
+
+    /* MAPA DE MESAS */
+    .map-container {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 25px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      border: 1px solid var(--border-color);
+    }
+
+    .pool-table {
+      background-color: #0d4b2e;
+      border: 10px solid #4a2e1b;
+      border-radius: 12px;
+      min-height: 180px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .pool-table:hover { transform: translateY(-4px); }
+
+    .pool-table.active {
+      background-color: #11623d;
+      box-shadow: 0 0 25px rgba(46, 204, 113, 0.3);
+    }
+
+    .pool-table.selected {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 30px rgba(241, 196, 15, 0.4);
+    }
+
+    /* Troneras */
+    .pocket {
+      width: 14px;
+      height: 14px;
+      background-color: #050505;
+      border-radius: 50%;
+      position: absolute;
+      z-index: 5;
+    }
+    .tl { top: -4px; left: -4px; }
+    .tr { top: -4px; right: -4px; }
+    .bl { bottom: -4px; left: -4px; }
+    .br { bottom: -4px; right: -4px; }
+
+    .table-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      z-index: 4;
+      position: relative;
+    }
+
+    .table-timer {
+      font-family: monospace;
+      font-size: 1.05rem;
+      margin-top: 6px;
+      background: rgba(0,0,0,0.5);
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #fff;
+      z-index: 4;
+      position: relative;
+    }
+
+    .table-status {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      z-index: 4;
+      position: relative;
+    }
+
+    .status-free { background: #576574; color: #fff; }
+    .status-busy { background: var(--accent-green); color: #0f1216; }
+
+    /* ---- Escena LIBRE: bastidor de palos ordenados a la izquierda ---- */
+    .cue-rack {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 78%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .cue-rack .rack-board {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #3d2314 0%, #6b3e24 50%, #3d2314 100%);
+      border-radius: 4px;
+      border: 1px solid #2a160c;
+      opacity: 0.95;
+    }
+    .cue-stick {
+      position: relative;
+      width: 5px;
+      height: 72%;
+      border-radius: 2px;
+      background: linear-gradient(180deg, #f5e6c8 0%, #c4a574 35%, #8b5a2b 70%, #1a1a1a 100%);
+      box-shadow: 1px 0 2px rgba(0,0,0,0.4);
+    }
+    .cue-stick::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 7px;
+      height: 8px;
+      border-radius: 1px;
+      background: #ddd;
+    }
+    .cue-rack .cue-stick:nth-child(2) { transform: rotate(-3deg); height: 70%; }
+    .cue-rack .cue-stick:nth-child(3) { transform: rotate(2deg); height: 74%; }
+    .cue-rack .cue-stick:nth-child(4) { transform: rotate(-1deg); height: 71%; }
+    .free-label {
+      position: absolute;
+      left: 38px;
+      bottom: 10px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.55);
+      z-index: 3;
+      letter-spacing: 0.04em;
+    }
+
+    /* ---- Escena OCUPADA: animación de juego (palos + bolas) ---- */
+    .play-scene {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .ball {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      box-shadow: inset -2px -2px 3px rgba(0,0,0,0.35), 1px 1px 2px rgba(255,255,255,0.25);
+    }
+    .ball.white { background: #f5f5f5; width: 11px; height: 11px; }
+    .ball.red { background: #c0392b; }
+    .ball.yellow { background: #f1c40f; }
+    .ball.blue { background: #2980b9; }
+    .ball.orange { background: #e67e22; }
+    .ball.purple { background: #8e44ad; }
+
+    .cue-playing {
+      position: absolute;
+      width: 6px;
+      height: 70%;
+      border-radius: 3px;
+      background: linear-gradient(180deg, #f5e6c8 0%, #c4a574 40%, #8b5a2b 75%, #111 100%);
+      transform-origin: bottom center;
+      box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+    .cue-playing.left {
+      left: 18%;
+      bottom: 8%;
+      animation: cueSwingLeft 2.4s ease-in-out infinite;
+    }
+    .cue-playing.right {
+      right: 18%;
+      bottom: 10%;
+      animation: cueSwingRight 2.8s ease-in-out infinite;
+      animation-delay: 0.6s;
+    }
+    @keyframes cueSwingLeft {
+      0%, 100% { transform: rotate(-28deg) translateY(0); }
+      40% { transform: rotate(-38deg) translateY(2px); }
+      55% { transform: rotate(-12deg) translateY(-4px); }
+      70% { transform: rotate(-30deg) translateY(0); }
+    }
+    @keyframes cueSwingRight {
+      0%, 100% { transform: rotate(26deg) translateY(0); }
+      35% { transform: rotate(36deg) translateY(2px); }
+      50% { transform: rotate(10deg) translateY(-5px); }
+      65% { transform: rotate(28deg) translateY(0); }
+    }
+
+    .ball.b1 { top: 28%; left: 42%; animation: ballRoll1 3.2s ease-in-out infinite; }
+    .ball.b2 { top: 45%; left: 55%; animation: ballRoll2 2.6s ease-in-out infinite; }
+    .ball.b3 { top: 38%; left: 48%; animation: ballRoll3 3.8s ease-in-out infinite; }
+    .ball.b4 { top: 55%; left: 40%; animation: ballRoll4 2.9s ease-in-out infinite; }
+    .ball.b5 { top: 32%; left: 60%; animation: ballRoll5 3.5s ease-in-out infinite; }
+
+    @keyframes ballRoll1 {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(18px, 8px); }
+      50% { transform: translate(-6px, 16px); }
+      75% { transform: translate(10px, -4px); }
+    }
+    @keyframes ballRoll2 {
+      0%, 100% { transform: translate(0, 0); }
+      30% { transform: translate(-14px, 10px); }
+      60% { transform: translate(8px, -8px); }
+    }
+    @keyframes ballRoll3 {
+      0%, 100% { transform: translate(0, 0); }
+      40% { transform: translate(12px, -12px); }
+      70% { transform: translate(-10px, 6px); }
+    }
+    @keyframes ballRoll4 {
+      0%, 100% { transform: translate(0, 0); }
+      35% { transform: translate(16px, -6px); }
+      65% { transform: translate(-8px, 12px); }
+    }
+    @keyframes ballRoll5 {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-12px, 8px); }
+      55% { transform: translate(14px, 4px); }
+    }
+
+    .playing-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(46, 204, 113, 0.9);
+      color: #0b1a10;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      z-index: 6;
+      animation: pulsePlay 1.5s ease-in-out infinite;
+    }
+    @keyframes pulsePlay {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.75; transform: scale(1.05); }
+    }
+
+
+    /* Gestión usuarios / clientes */
+    .mgmt-panel {
+      margin-top: 20px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+    }
+    .mgmt-panel h3 {
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    .mgmt-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .mgmt-grid { grid-template-columns: 1fr; }
+    }
+    .mgmt-form {
+      display: grid;
+      gap: 8px;
+      background: #14171d;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+    .mgmt-form input, .mgmt-form select {
+      background: #252a36;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    .mgmt-form label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .mgmt-form .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .mgmt-list {
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .mgmt-list table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .mgmt-list th, .mgmt-list td {
+      padding: 8px;
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+    }
+    .mgmt-list th { color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; }
+    .vip-tag {
+      background: rgba(241,196,15,0.15);
+      color: var(--accent-gold);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .role-tag-admin { color: var(--accent-gold); font-weight: 700; }
+    .role-tag-colab { color: var(--accent-blue); font-weight: 700; }
+    .role-tag-cli { color: var(--accent-green); font-weight: 700; }
+
+    /* Mejor interacción mesa ocupada: ripple + sombra dinámica */
+    .pool-table.active::before {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at 30% 40%, rgba(46,204,113,0.12), transparent 55%),
+                  radial-gradient(circle at 70% 60%, rgba(241,196,15,0.08), transparent 50%);
+      animation: tableGlow 3s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes tableGlow {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+    .pool-table.active .play-scene .ball {
+      filter: drop-shadow(0 0 3px rgba(255,255,255,0.35));
+    }
+    .hit-flash {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.7);
+      top: 40%;
+      left: 48%;
+      animation: hitFlash 2.4s ease-out infinite;
+      pointer-events: none;
+      z-index: 3;
+    }
+    @keyframes hitFlash {
+      0% { transform: scale(0.3); opacity: 0.9; }
+      40% { transform: scale(1.6); opacity: 0; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    .pool-table.free-hover:hover .cue-rack .cue-stick {
+      transform: translateX(2px);
+      transition: transform 0.2s ease;
+    }
+
+    /* Vista cliente: mesa un poco más alta para la escena */
+    body.role-cliente .pool-table { min-height: 200px; }
+    body.role-cliente .map-container {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    /* PANEL DETALLES */
+    .panel {
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .panel-header h2 {
+      font-size: 1.2rem;
+      color: var(--accent-gold);
+    }
+
+    /* ACCIONES DE TIEMPO */
+    .action-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-start { background: var(--accent-green); color: #000; }
+    .btn-start:hover { background: #27ae60; }
+
+    .btn-stop { background: var(--accent-red); color: #fff; }
+    .btn-stop:hover { background: #c0392b; }
+
+    /* CONSUMOS */
+    .section-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quick-add {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .btn-item {
+      background: #252a36;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .btn-item:hover:not(:disabled) {
+      border-color: var(--accent-blue);
+      background: #2c3342;
+    }
+
+    .btn-item:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      border-color: #3a2222;
+    }
+
+    .btn-item-info {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .stock-tag {
+      font-size: 0.7rem;
+      color: var(--accent-gold);
+    }
+    .stock-tag.low { color: var(--accent-red); font-weight: bold; }
+
+    .custom-item-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .custom-item-form input {
+      background: #252a36;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .custom-item-form input[type="text"] { flex: 2; }
+    .custom-item-form input[type="number"] { flex: 1; }
+
+    .btn-add {
+      background: var(--accent-blue);
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* LISTA DE CONSUMO */
+    .orders-list {
+      list-style: none;
+      max-height: 130px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .order-item {
+      background: #222733;
+      padding: 8px 12px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    /* TOTALES */
+    .summary-box {
+      margin-top: auto;
+      background: #14171d;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .summary-row.total {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-green);
+      border-top: 1px solid var(--border-color);
+      padding-top: 8px;
+      margin-bottom: 0;
+    }
+
+    /* SECCIÓN CONTROL DE INVENTARIO Y STOCK */
+    .inventory-panel {
+      margin-top: 25px;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .inv-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .inv-header h3 {
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .inv-form-inline {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 10px;
+      margin-bottom: 15px;
+      background: #14171d;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .inv-form-inline input {
+      background: #252a36;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    .inv-table-wrap {
+      overflow-x: auto;
+    }
+
+    .inv-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    .inv-table th, .inv-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .inv-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    .stock-badge {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+    .stock-ok { background: rgba(46, 204, 113, 0.15); color: var(--accent-green); }
+    .stock-low { background: rgba(231, 76, 60, 0.15); color: var(--accent-red); }
+
+    .btn-stock-qty {
+      background: #252a36;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-stock-qty:hover { background: #343a4a; }
+
+    /* ESTILOS DEL MODAL CIERRE DE CAJA */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    /* Boleta de consumo (vista en pantalla, estilo ticket térmico) */
+    .boleta-ticket {
+      max-width: 340px;
+      width: 100%;
+      font-family: 'Courier New', Courier, monospace;
+      background: #1a1e26 !important;
+      padding: 12px !important;
+    }
+    .boleta-paper {
+      background: #fff;
+      color: #000;
+      border-radius: 4px;
+      padding: 14px 12px 18px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    }
+    .boleta-paper .center { text-align: center; }
+    .boleta-paper .biz-name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      margin: 0 0 2px;
+      color: #000;
+    }
+    .boleta-paper .biz-sub {
+      font-size: 11px;
+      color: #333;
+      margin: 0 0 6px;
+    }
+    .boleta-paper .sep {
+      border: none;
+      border-top: 1px dashed #000;
+      margin: 8px 0;
+    }
+    .boleta-paper .sep-double {
+      border: none;
+      border-top: 2px solid #000;
+      margin: 8px 0;
+    }
+    .boleta-paper .line {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 12px;
+      line-height: 1.35;
+      padding: 2px 0;
+      color: #000;
+    }
+    .boleta-paper .line span:first-child {
+      flex: 1;
+      word-break: break-word;
+    }
+    .boleta-paper .line span:last-child {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .boleta-paper .line.total {
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .boleta-paper .section-title-b {
+      margin-top: 6px;
+      margin-bottom: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #000;
+    }
+    .boleta-paper .muted {
+      color: #333;
+      font-size: 10px;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+    .boleta-paper .ticket-no {
+      font-size: 11px;
+      text-align: center;
+      margin: 4px 0 0;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 25px;
+      max-width: 780px;
+      width: 94%;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    /* Impresión: el cierre de caja usa este fallback; la boleta usa ventana dedicada (printBoleta) */
+    @media print {
+      body * { visibility: hidden !important; }
+      #close-box-modal.printing, #close-box-modal.printing * { visibility: visible !important; }
+      #close-box-modal.printing {
+        position: absolute !important; left: 0; top: 0; width: 100%;
+        background: white !important; color: #111 !important; display: block !important;
+      }
+      #close-box-modal.printing .modal-content {
+        max-width: 100%; border: none; box-shadow: none; color: #111; background: #fff;
+      }
+      .boleta-actions, .btn { display: none !important; }
+    }
+
+    /* Bloqueo visual hasta pasar validador de sesión */
+    body.auth-pending > *:not(#auth-blocking-msg) {
+      visibility: hidden !important;
+    }
+    #auth-blocking-msg {
+      visibility: visible !important;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f1216;
+      color: #f5f6fa;
+      font-family: system-ui, sans-serif;
+      font-size: 1rem;
+    }
+    body:not(.auth-pending) #auth-blocking-msg { display: none !important; }
+
+/* === MOBILE / TOUCH === */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  padding: 12px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  padding-left: calc(12px + env(safe-area-inset-left, 0px));
+  padding-right: calc(12px + env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
+}
+
+/* Targets táctiles más grandes */
+.btn,
+.btn-back,
+.btn-close-box,
+.btn-item,
+.btn-start,
+.btn-stop {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(46, 204, 113, 0.25);
+}
+
+.pool-table {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(241, 196, 15, 0.2);
+}
+.pool-table:hover { transform: none; }
+.pool-table:active { transform: scale(0.98); }
+
+input, select, button, textarea {
+  font-size: 16px; /* evita zoom automático en iOS */
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  body { padding: 10px; }
+
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg-main);
+    padding-top: 4px;
+    margin-bottom: 12px;
+  }
+  .brand {
+    font-size: 1.15rem;
+    flex-wrap: wrap;
+  }
+  #session-badge {
+    display: block;
+    width: 100%;
+    margin-left: 0 !important;
+    margin-top: 4px;
+    font-size: 0.7rem !important;
+  }
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .rate-info, #db-status {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    max-width: 100%;
+  }
+  .btn-close-box, .btn-back {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 10px 12px;
+  }
+
+  .dashboard {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .map-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .pool-table {
+    min-height: 150px;
+    border-width: 8px;
+  }
+  .table-name { font-size: 0.95rem; }
+  .table-timer { font-size: 0.9rem; }
+
+  .panel {
+    padding: 14px;
+    order: 2;
+  }
+  .map-container { order: 1; }
+
+  .action-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .action-group .btn {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: center;
+  }
+
+  .quick-add {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .btn-item {
+    width: 100%;
+    padding: 12px 8px;
+    font-size: 0.85rem;
+  }
+
+  .inventory-panel {
+    padding: 12px;
+    overflow-x: auto;
+  }
+  .inv-form-inline {
+    grid-template-columns: 1fr 1fr;
+  }
+  .inv-form-inline button {
+    grid-column: 1 / -1;
+  }
+  .inv-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .inv-table {
+    min-width: 640px;
+  }
+
+  .mgmt-panel {
+    padding: 14px;
+  }
+  .mgmt-grid {
+    grid-template-columns: 1fr;
+  }
+  .mgmt-form .row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 16px 16px 0 0;
+    padding: 16px;
+  }
+  .boleta-ticket {
+    max-width: 100%;
+  }
+
+  body.role-cliente .map-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    grid-template-columns: 1fr;
+  }
+  body.role-cliente .map-container {
+    grid-template-columns: 1fr;
+  }
+  .pool-table {
+    min-height: 170px;
+  }
+  .brand span:first-child {
+    font-size: 1.4rem;
+  }
+  .header-actions .rate-info:nth-child(1) {
+    width: 100%;
+  }
+  .action-group .btn {
+    flex: 1 1 100%;
+  }
+  .quick-add {
+    grid-template-columns: 1fr;
+  }
+  .inv-form-inline {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Landscape phones */
+@media (max-width: 900px) and (orientation: landscape) {
+  .map-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .dashboard {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+/* Preferencia de menos animación (batería / accesibilidad) */
+@media (prefers-reduced-motion: reduce) {
+  .pool-table.active::before,
+  .cue-playing,
+  .ball,
+  .hit-flash,
+  .playing-badge {
+    animation: none !important;
+  }
+}
+
+/* Cliente: puede abrir mesas pero no cerrarlas */
+body.role-cliente #btn-cerrar-mesa { display: none !important; }
+body.role-cliente #btn-abrir-mesa { width: 100%; }
+
+/* Utilidades (antes estilos en línea) */
+#session-badge.u-p-1 { font-size:0.75rem;font-weight:600;color:var(--text-muted);margin-left:8px; }
+#db-status.u-p-2 { border-color: rgba(46,204,113,0.3); color: var(--accent-green); }
+.u-p-3 { font-size:0.75rem; color:var(--accent-gold); }
+.u-p-4 { font-size:0.85rem; color:var(--text-muted); }
+.u-p-5 { padding: 8px 15px; }
+.u-p-6 { display:none; }
+.u-p-7 { padding:10px; }
+.u-p-8 { font-size:0.75rem;color:var(--text-muted);margin:0; }
+.u-p-9 { padding:10px; background: var(--accent-blue); }
+.u-p-10 { display: none; }
+.u-p-11 { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.u-p-12 { color: var(--accent-gold); margin-bottom: 15px; }
+.u-p-13 { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+.u-p-14 { background: var(--accent-blue); }

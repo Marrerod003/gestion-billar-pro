@@ -1,0 +1,1108 @@
+/* ==========================================================================
+   PROBILLAR — styles.css
+   --------------------------------------------------------------------------
+   Estilos principales de la landing page.
+   Organización por secciones para facilitar el mantenimiento.
+
+   Paleta:
+     --accent      → Cyan/Teal  (#5eead4)  — color principal
+     --accent-2    → Púrpura    (#a78bfa)  — color secundario
+     --bg          → Fondo casi negro
+     --bg-card     → Fondo de tarjetas
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. VARIABLES GLOBALES (Custom Properties)
+   -------------------------------------------------------------------------- */
+/* Modo oscuro (por defecto) */
+:root {
+  --bg: #05070b;
+  --bg-elevated: #0c1017;
+  --bg-card: #11151e;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(94, 234, 212, 0.35);
+  --text: #e8edf5;
+  --text-muted: #8b95a8;
+  --accent: #5eead4;
+  --accent-soft: rgba(94, 234, 212, 0.12);
+  --accent-2: #a78bfa;
+  --accent-2-soft: rgba(167, 139, 250, 0.12);
+  --success: #34d399;
+  --danger: #f87171;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  --font: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --nav-bg: rgba(5, 7, 11, 0.75);
+  --grid-line: rgba(94, 234, 212, 0.03);
+  --glow: rgba(94, 234, 212, 0.08);
+  --dash-bg: linear-gradient(160deg, #12161f 0%, #0a0d13 100%);
+  --btn-primary-text: #042f2e;
+}
+
+/* Modo claro */
+[data-theme="light"] {
+  --bg: #f4f7fb;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --border: rgba(15, 23, 42, 0.1);
+  --border-hover: rgba(13, 148, 136, 0.45);
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --accent: #0d9488;
+  --accent-soft: rgba(13, 148, 136, 0.12);
+  --accent-2: #7c3aed;
+  --accent-2-soft: rgba(124, 58, 237, 0.1);
+  --success: #059669;
+  --danger: #dc2626;
+  --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --grid-line: rgba(13, 148, 136, 0.06);
+  --glow: rgba(13, 148, 136, 0.06);
+  --dash-bg: linear-gradient(160deg, #ffffff 0%, #f1f5f9 100%);
+  --btn-primary-text: #ffffff;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. RESET Y BASE
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Fondo con grid sutil (efecto tech) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Orbe de luz decorativo (esquina superior derecha) */
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Contenedor centrado */
+.container {
+  width: min(1140px, 92%);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. NAVEGACIÓN (Navbar sticky)
+   -------------------------------------------------------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 0;
+  backdrop-filter: blur(16px);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Logo + mascota pequeña */
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.logo-mascot {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+
+/* --------------------------------------------------------------------------
+   4. BOTONES
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.35rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--btn-primary-text);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(94, 234, 212, 0.3);
+}
+
+[data-theme="light"] .btn-primary:hover {
+  box-shadow: 0 8px 24px rgba(13, 148, 136, 0.25);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Botón de cambio de tema (oscuro / claro)
+   -------------------------------------------------------------------------- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.05);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Icono sol visible solo en modo oscuro; luna solo en modo claro */
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. MASCOTA (SVG + animación)
+   --------------------------------------------------------------------------
+   .mascot-hero  → versión grande flotante junto al dashboard
+   .mascot-cta   → versión mediana en el CTA final
+   Animación: flotación suave + ligera rotación
+   -------------------------------------------------------------------------- */
+.mascot-hero {
+  position: absolute;
+  bottom: -12px;
+  left: -18px;
+  width: 110px;
+  height: 110px;
+  z-index: 5;
+  filter: drop-shadow(0 12px 28px rgba(94, 234, 212, 0.25));
+  animation: mascot-float 4.5s ease-in-out infinite;
+}
+
+@keyframes mascot-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-10px) rotate(2deg); }
+}
+
+.mascot-cta {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1.25rem;
+  display: block;
+  filter: drop-shadow(0 8px 20px rgba(94, 234, 212, 0.2));
+}
+
+/* Contenedor relativo para posicionar la mascota sobre el dashboard */
+.dashboard-wrap {
+  position: relative;
+}
+
+
+/* --------------------------------------------------------------------------
+   6. HERO
+   -------------------------------------------------------------------------- */
+.hero {
+  padding: 5.5rem 0 4rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  margin-bottom: 1.25rem;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  color: var(--text-muted);
+  font-size: 1.08rem;
+  max-width: 34rem;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.hero-meta strong {
+  color: var(--text);
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 0.15rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. DASHBOARD MOCK (tarjeta flotante del hero)
+   -------------------------------------------------------------------------- */
+.dashboard {
+  background: var(--dash-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.35rem;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(94, 234, 212, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.5;
+}
+
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.1rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.dash-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--success);
+  font-weight: 600;
+}
+
+.dash-status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+
+.dash-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.dash-stat {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1rem;
+}
+
+.dash-stat label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dash-stat .value {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+.dash-stat .value.teal   { color: var(--accent); }
+.dash-stat .value.purple { color: var(--accent-2); }
+
+.dash-tables {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-row .time {
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.dash-pricing {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.price-tag {
+  flex: 1;
+  background: rgba(94, 234, 212, 0.06);
+  border: 1px solid rgba(94, 234, 212, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+  text-align: center;
+}
+
+.price-tag span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.price-tag strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. STRIP (3 tarjetas de valor debajo del hero)
+   -------------------------------------------------------------------------- */
+.strip {
+  padding: 1.5rem 0 3.5rem;
+}
+
+.strip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.strip-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.5rem;
+  transition: border-color 0.25s;
+}
+
+.strip-card:hover {
+  border-color: var(--border-hover);
+}
+
+.strip-card h3 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.strip-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. SECCIONES COMUNES (títulos y labels)
+   -------------------------------------------------------------------------- */
+section {
+  padding: 4.5rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  max-width: 36rem;
+  margin-bottom: 2.5rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   10. MÓDULOS (grid de 6 tarjetas de funcionalidades)
+   -------------------------------------------------------------------------- */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.module-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.5rem;
+  transition: all 0.25s ease;
+}
+
+.module-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.module-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.module-icon.teal   { background: var(--accent-soft); color: var(--accent); }
+.module-icon.purple { background: var(--accent-2-soft); color: var(--accent-2); }
+
+.module-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.module-card p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.module-card ul {
+  list-style: none;
+  margin-top: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.module-card li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.module-card li::before {
+  content: '▸';
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   11. PROBLEMAS + SOLUCIÓN
+   -------------------------------------------------------------------------- */
+.problems {
+  background: linear-gradient(180deg, transparent, rgba(94, 234, 212, 0.03), transparent);
+}
+
+.problems-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.problem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.problem-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.15rem;
+}
+
+.problem-item .icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(248, 113, 113, 0.12);
+  color: var(--danger);
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+}
+
+.solution-box {
+  background: var(--bg-card);
+  border: 1px solid rgba(94, 234, 212, 0.2);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: sticky;
+  top: 100px;
+}
+
+.solution-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.solution-box ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.solution-box li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.solution-box li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   12. BENEFICIOS
+   -------------------------------------------------------------------------- */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.15rem;
+}
+
+.benefit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+
+.benefit-card .num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.benefit-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+
+.benefit-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   13. PRECIOS
+   -------------------------------------------------------------------------- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.15rem;
+  align-items: stretch;
+}
+
+.price-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color 0.25s;
+}
+
+.price-card.featured {
+  border-color: var(--accent);
+  background: linear-gradient(160deg, rgba(94, 234, 212, 0.08), var(--bg-card));
+  box-shadow: 0 0 40px rgba(94, 234, 212, 0.1);
+}
+
+.price-card.featured::before {
+  content: 'Más popular';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #042f2e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+
+.price-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.price-card .amount {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0.6rem 0 0.3rem;
+}
+
+.price-card .amount span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.price-card .period {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 1.4rem;
+}
+
+.price-card ul {
+  list-style: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 1.75rem;
+}
+
+.price-card li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.price-card li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.price-card .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* --------------------------------------------------------------------------
+   14. FAQ (acordeón)
+   -------------------------------------------------------------------------- */
+.faq-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.25rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  gap: 1rem;
+}
+
+.faq-question:hover {
+  color: var(--accent);
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  transition: all 0.25s;
+}
+
+.faq-item.open .faq-icon {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 200px;
+  padding: 0 1.25rem 1.15rem;
+}
+
+.faq-answer p {
+  color: var(--text-muted);
+  font-size: 0.93rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   15. CTA FINAL
+   -------------------------------------------------------------------------- */
+.cta {
+  padding: 5rem 0;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.1), rgba(167, 139, 250, 0.08));
+  border: 1px solid rgba(94, 234, 212, 0.25);
+  border-radius: 24px;
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.85rem;
+}
+
+.cta-box p {
+  color: var(--text-muted);
+  max-width: 32rem;
+  margin: 0 auto 2rem;
+}
+
+.cta-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   16. FOOTER
+   -------------------------------------------------------------------------- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-copy {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+
+/* --------------------------------------------------------------------------
+   17. RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .hero-grid,
+  .problems-grid,
+  .faq-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .modules-grid,
+  .benefits-grid,
+  .pricing-grid,
+  .strip-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .solution-box {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .modules-grid,
+  .benefits-grid,
+  .pricing-grid,
+  .strip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: 3.5rem;
+  }
+
+  .dash-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-box {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+
+/* Touch / móvil extra */
+.btn, a.btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(94, 234, 212, 0.25);
+  min-height: 44px;
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hero { padding-top: 1.5rem; }
+  .cta-actions { flex-direction: column; }
+  .cta-actions .btn { width: 100%; text-align: center; }
+}

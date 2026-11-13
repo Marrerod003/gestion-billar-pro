@@ -1,0 +1,140 @@
+/* ProBillar — login */
+:root {
+      --bg-main: #0f1216;
+      --card-bg: #1a1e26;
+      --accent-green: #2ecc71;
+      --accent-gold: #f1c40f;
+      --accent-red: #e74c3c;
+      --accent-blue: #3498db;
+      --text-main: #f5f6fa;
+      --text-muted: #8c96a6;
+      --border-color: #2c3240;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(ellipse at top, #1a2332 0%, var(--bg-main) 55%);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .brand span { font-size: 1.8rem; }
+    .brand h1 { font-size: 1.35rem; font-weight: 700; }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    input, select {
+      width: 100%;
+      background: #14171d;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      outline: none;
+    }
+    input:focus, select:focus { border-color: var(--accent-blue); }
+    .btn-login {
+      width: 100%;
+      margin-top: 6px;
+      background: var(--accent-green);
+      color: #0b1a10;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-login:hover { filter: brightness(1.05); }
+    .btn-login:disabled { opacity: 0.6; cursor: wait; }
+    .error {
+      display: none;
+      background: rgba(231, 76, 60, 0.15);
+      border: 1px solid var(--accent-red);
+      color: #ff8a80;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      margin-bottom: 14px;
+    }
+    .error.show { display: block; }
+    .hints {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .hints strong { color: var(--accent-gold); }
+    .role-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+    .r-admin { background: rgba(241,196,15,0.15); color: var(--accent-gold); }
+    .r-colab { background: rgba(52,152,219,0.15); color: var(--accent-blue); }
+    .r-cli { background: rgba(46,204,113,0.15); color: var(--accent-green); }
+    .db-ok { color: var(--accent-green); font-size: 0.78rem; margin-top: 12px; }
+
+
+/* === MOBILE / TOUCH === */
+html { -webkit-text-size-adjust: 100%; }
+body {
+  padding: 16px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+}
+.login-card {
+  max-width: 420px;
+  width: 100%;
+  padding: 24px 18px;
+}
+input, button {
+  font-size: 16px;
+  min-height: 48px;
+  touch-action: manipulation;
+}
+.btn-login {
+  min-height: 48px;
+  font-size: 1.05rem;
+}
+.hints { font-size: 0.78rem; }
+
+@media (max-width: 400px) {
+  .login-card { padding: 20px 14px; }
+  .brand h1 { font-size: 1.2rem; }
+}
+
+/* Utilidades (antes estilos en línea) */
+.u-lg-1 { margin-top:8px; }
+.u-lg-2 { margin-top:6px;font-size:0.75rem; }

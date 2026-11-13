@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#0f1216" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+  <title>Sistema de Control - Billar Pro</title>
+  <link rel="stylesheet" href="../assets/css/panel/panel.css?v=20261113" />
+</head>
+<body id="app-root" class="auth-pending">
+
+  <header>
+    <div class="brand">
+      <span>🎱</span> Billar Manager Pro
+      <span class="u-p-1" id="session-badge"></span>
+    </div>
+    <div class="header-actions">
+      <div class="rate-info" id="rate-info">
+        Conectando a Supabase…
+      </div>
+      <div class="rate-info u-p-2" id="db-status">
+        DB: —
+      </div>
+      <button class="btn-close-box" id="btn-cierre-caja" onclick="closeDailyBox()">🔒 Cierre de Caja</button>
+      <button class="btn-back" id="btn-logout" type="button" onclick="logout()">Salir</button>
+    </div>
+  </header>
+
+  <!-- BANNER DE NOTIFICACIONES SOBRE EL STOCK -->
+  <div id="notification-container"></div>
+
+  <div class="dashboard">
+    <!-- MAPA DE MESAS -->
+    <div class="map-container" id="map-container">
+      <!-- Generado dinámicamente con JS -->
+    </div>
+
+    <!-- PANEL DE CONTROL Y CONSUMO -->
+    <div class="panel">
+      <div class="panel-header">
+        <h2 id="panel-table-title">Mesa 1</h2>
+        <span id="panel-table-status" class="table-status status-free">Disponible</span>
+      </div>
+
+      <!-- BOTONES DE CONTROL DE TIEMPO -->
+      <div class="action-group">
+        <button class="btn btn-start" id="btn-abrir-mesa" onclick="startTable()">Abrir Mesa</button>
+        <button class="btn btn-stop" id="btn-cerrar-mesa" onclick="stopTable()">Cerrar / Cobrar</button>
+      </div>
+
+      <!-- AGREGAR CONSUMO RÁPIDO (DESDE INVENTARIO) -->
+      <div class="section-title">
+        <span>Añadir del Inventario</span>
+        <span class="u-p-3">Descuento Automático</span>
+      </div>
+      <div class="quick-add" id="quick-add-container">
+        <!-- Generado dinámicamente según el inventario -->
+      </div>
+
+      <!-- AGREGAR CONSUMO PERSONALIZADO -->
+      <div class="section-title">Añadir Producto Manual (Suma a Inventario)</div>
+      <div class="custom-item-form">
+        <input type="text" id="custom-name" placeholder="Ej. Agua mineral">
+        <input type="number" id="custom-price" placeholder="Precio" step="0.5">
+        <button class="btn-add" onclick="addCustomItem()">+</button>
+      </div>
+
+      <!-- DETALLE DE CONSUMOS -->
+      <div class="section-title">Consumos de la Mesa</div>
+      <ul class="orders-list" id="orders-list">
+        <!-- Generado dinámicamente -->
+      </ul>
+
+      <!-- RESUMEN DE CUENTA -->
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Tiempo de Juego:</span>
+          <span id="summary-time">00:00:00</span>
+        </div>
+        <div class="summary-row">
+          <span>Costo Tiempo:</span>
+          <span id="summary-time-cost">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Costo Productos:</span>
+          <span id="summary-products-cost">$0.00</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total a Pagar:</span>
+          <span id="summary-total">$0.00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN DE CONTROL DE INVENTARIO Y STOCK INTEGRADAS -->
+  <section class="inventory-panel">
+    <div class="inv-header">
+      <h3>📦 Control de Stock e Inventario General</h3>
+      <span class="u-p-4">Actualización en tiempo real</span>
+    </div>
+
+    <!-- Formulario Rápido de Insumos -->
+    <form class="inv-form-inline" onsubmit="addNewStockItem(event)">
+      <input type="text" id="inv-new-name" placeholder="Nombre del Insumo / Producto" required>
+      <input type="number" id="inv-new-price" step="0.5" placeholder="Precio ($)" required>
+      <input type="number" id="inv-new-stock" placeholder="Stock Inic." required>
+      <input type="number" id="inv-new-min" placeholder="Stock Mín." required>
+      <button type="submit" class="btn btn-start u-p-5">+ Crear</button>
+    </form>
+
+    <div class="inv-table-wrap">
+      <table class="inv-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Precio Unit.</th>
+            <th>Stock Inicial</th>
+            <th>Vendidos Hoy</th>
+            <th>Stock Actual</th>
+            <th>Stock Mín.</th>
+            <th>Estado</th>
+            <th>Ajustar Stock</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="inventory-tbody">
+          <!-- Renderizado dinámico del inventario -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- GESTIÓN DE CLIENTES (Colaborador + Administrador) -->
+  <section class="mgmt-panel u-p-6" id="panel-clientes">
+    <h3>👥 Gestión de Clientes</h3>
+    <div class="mgmt-grid">
+      <form class="mgmt-form" id="form-cliente" onsubmit="addCliente(event)">
+        <div class="row">
+          <div>
+            <label>Nombre completo *</label>
+            <input type="text" id="cli-nombre" placeholder="Ej. Juan Pérez" required>
+          </div>
+          <div>
+            <label>Usuario de acceso *</label>
+            <input type="text" id="cli-usuario" placeholder="login del cliente" required autocomplete="off">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Contraseña *</label>
+            <input type="text" id="cli-pass" value="1234" required>
+          </div>
+          <div>
+            <label>DNI / Documento</label>
+            <input type="text" id="cli-dni" placeholder="Opcional">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Teléfono</label>
+            <input type="text" id="cli-telefono" placeholder="Opcional">
+          </div>
+          <div>
+            <label>VIP</label>
+            <select id="cli-vip">
+              <option value="false">No</option>
+              <option value="true">Sí</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-start u-p-7">+ Registrar cliente</button>
+        <p class="u-p-8">Se crea acceso con rol Cliente para ver mesas y pedir productos (sin poder quitarlos).</p>
+      </form>
+      <div class="mgmt-list">
+        <table>
+          <thead>
+            <tr><th>Nombre</th><th>Usuario</th><th>DNI</th><th>Teléfono</th><th>VIP</th></tr>
+          </thead>
+          <tbody id="clientes-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- GESTIÓN DE USUARIOS (solo Administrador) -->
+  <section class="mgmt-panel u-p-6" id="panel-usuarios">
+    <h3>🛡️ Gestión de Usuarios (Admin / Colaborador)</h3>
+    <div class="mgmt-grid">
+      <form class="mgmt-form" id="form-usuario" onsubmit="addUsuario(event)">
+        <div class="row">
+          <div>
+            <label>Nombre completo *</label>
+            <input type="text" id="usr-nombre" placeholder="Nombre y apellido" required>
+          </div>
+          <div>
+            <label>Usuario de acceso *</label>
+            <input type="text" id="usr-usuario" placeholder="login" required autocomplete="off">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Contraseña *</label>
+            <input type="text" id="usr-pass" value="1234" required>
+          </div>
+          <div>
+            <label>Rol *</label>
+            <select id="usr-rol" required>
+              <option value="2">Colaborador</option>
+              <option value="1">Administrador</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-start u-p-9">+ Crear usuario</button>
+        <p class="u-p-8">Solo el Administrador puede crear colaboradores y otros administradores. No se crean cuentas de rol Cliente aquí (usa Gestión de Clientes).</p>
+      </form>
+      <div class="mgmt-list">
+        <table>
+          <thead>
+            <tr><th>Nombre</th><th>Usuario</th><th>Rol</th><th>Estado</th></tr>
+          </thead>
+          <tbody id="usuarios-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL BOLETA DE CONSUMO DE MESA -->
+  <div id="boleta-modal" class="modal-overlay u-p-10">
+    <div class="modal-content boleta-ticket" id="boleta-ticket">
+      <div id="boleta-body"></div>
+      <div class="boleta-actions u-p-11">
+        <button class="btn btn-start" onclick="printBoleta()">🖨️ Imprimir boleta</button>
+        <button class="btn btn-stop" onclick="document.getElementById('boleta-modal').style.display='none'">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE RESUMEN AL CIERRE DE CAJA -->
+  <div id="close-box-modal" class="modal-overlay u-p-10">
+    <div class="modal-content">
+      <h2 class="u-p-12">📋 Reporte de Cierre de Caja</h2>
+      <div id="modal-report-body"></div>
+      <div class="u-p-13">
+        <button class="btn btn-start" onclick="exportReportCSV()" title="Descargar CSV (abre bien en Excel)">📥 CSV / Excel</button>
+        <button class="btn btn-start u-p-14" onclick="exportReportExcel()" title="Descargar archivo Excel (.xls)">📊 Excel</button>
+        <button class="btn btn-start" onclick="printCierreCaja()">🖨️ Imprimir / PDF</button>
+        <button class="btn btn-stop" onclick="document.getElementById('close-box-modal').style.display='none'">Cerrar Ventana</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Módulos del panel (orden importa; sin repetición de lógica) -->
+  <script src="../assets/js/core/config.js?v=20261113"></script>
+  <script src="../assets/js/panel/state.js?v=20261113"></script>
+  <script src="../assets/js/panel/api.js?v=20261113"></script>
+  <script src="../assets/js/panel/auth.js?v=20261113"></script>
+  <script src="../assets/js/panel/mesas.js?v=20261113"></script>
+  <script src="../assets/js/panel/inventario.js?v=20261113"></script>
+  <script src="../assets/js/panel/boleta.js?v=20261113"></script>
+  <script src="../assets/js/panel/gestion.js?v=20261113"></script>
+  <script src="../assets/js/panel/reportes.js?v=20261113"></script>
+  <script src="../assets/js/panel/panel-init.js?v=20261113"></script>
+
+</body>
+</html>

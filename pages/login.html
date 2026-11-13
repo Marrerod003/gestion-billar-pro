@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#0f1216" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+  <title>Login — Billar Manager Pro</title>
+  <link rel="stylesheet" href="../assets/css/login/login.css?v=20261113" />
+</head>
+<body>
+  <div class="login-card">
+    <div class="brand">
+      <span>🎱</span>
+      <h1>Billar Manager Pro</h1>
+    </div>
+    <p class="subtitle">Inicia sesión según tu rol para acceder al sistema</p>
+
+    <div id="error" class="error"></div>
+
+    <form id="login-form">
+      <label for="usuario">Usuario</label>
+      <input id="usuario" name="usuario" autocomplete="username" placeholder="admin / colaborador / cliente" required>
+
+      <label for="password">Contraseña</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" placeholder="••••" required>
+
+      <button type="submit" class="btn-login" id="btn-login">Entrar</button>
+    </form>
+
+    <div class="hints">
+      <div><strong>admin</strong> <span class="role-tag r-admin">Administrador</span> — acceso total</div>
+      <div><strong>colaborador</strong> <span class="role-tag r-colab">Colaborador</span> — mesas y ventas</div>
+      <div><strong>cliente</strong> <span class="role-tag r-cli">Cliente</span> — ve y abre mesas, pide productos</div>
+      <div class="u-lg-1">Contraseña demo: <strong>1234</strong> (o la asignada al registrar el cliente)</div>
+      <div class="u-lg-2">Cliente: puede abrir mesas y pedir productos; no puede cerrarlas ni quitar pedidos.</div>
+      <div class="db-ok" id="db-line">Validando contra Supabase…</div>
+    </div>
+  </div>
+  <script src="../assets/js/core/config.js?v=20261113"></script>
+  <script src="../assets/js/login/login.js?v=20261113"></script>
+</body>
+</html>

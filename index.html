@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0f1216" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <title>ProBillar | Sistema Profesional para Salones de Billar</title>
+  <meta name="description" content="Controla mesas, tiempos, ventas, inventario y caja de tu salón de billar desde cualquier dispositivo. Sistema profesional en la nube." />
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Estilos landing (única fuente: css/styles.css) -->
+  <link rel="stylesheet" href="assets/css/landing/styles.css?v=20261113" />
+  <link rel="stylesheet" href="assets/css/landing/inventory-demo.css?v=20261113" />
+</head>
+
+<body>
+<!-- ========================================================================
+       1. NAVEGACIÓN
+       ======================================================================== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+
+      <!-- Logo con mascota vectorial pequeña -->
+      <a href="#" class="logo">
+        <svg class="logo-mascot" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="40" cy="42" r="28" fill="#0f172a" stroke="#5eead4" stroke-width="2.5"/>
+          <circle cx="40" cy="42" r="22" fill="url(#ballGrad)"/>
+          <ellipse cx="32" cy="32" rx="8" ry="5" fill="rgba(255,255,255,0.25)" transform="rotate(-25 32 32)"/>
+          <circle cx="40" cy="44" r="11" fill="#f8fafc"/>
+          <text x="40" y="49" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="14" fill="#0f172a">8</text>
+          <circle cx="31" cy="36" r="3.2" fill="#0f172a"/>
+          <circle cx="49" cy="36" r="3.2" fill="#0f172a"/>
+          <circle cx="32" cy="35" r="1.1" fill="#5eead4"/>
+          <circle cx="50" cy="35" r="1.1" fill="#5eead4"/>
+          <path d="M33 50 Q40 56 47 50" stroke="#0f172a" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <rect x="58" y="18" width="4" height="28" rx="2" fill="#a78bfa" transform="rotate(35 60 32)"/>
+          <circle cx="62" cy="16" r="3.5" fill="#5eead4"/>
+          <defs>
+            <linearGradient id="ballGrad" x1="20" y1="20" x2="60" y2="65" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#1e293b"/>
+              <stop offset="1" stop-color="#0f172a"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        PRO<span>BILLAR</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#modulos">Módulos</a></li>
+        <li><a href="#inventario-demo">Inventario Demo</a></li>
+        <li><a href="#problemas">Problemas</a></li>
+        <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#precios">Precios</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+        <li><a href="pages/login.html">Entrar</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <a href="#cta" class="btn btn-primary">Solicitar demo</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ========================================================================
+       2. HERO
+       ======================================================================== -->
+  <header class="hero">
+    <div class="container hero-grid">
+
+      <div>
+        <div class="eyebrow">Sistema profesional · Salones de billar</div>
+        <h1>
+          Control total de tus <span class="highlight">mesas, tiempos y caja</span> desde cualquier dispositivo.
+        </h1>
+        <p class="hero-desc">
+          ProBillar es el sistema en la nube diseñado para salones de billar profesionales.
+          Gestiona ocupación, consumos, inventario, cortes de caja y reportes en tiempo real —
+          sin instalaciones, desde el celular, tablet o PC.
+        </p>
+        <div class="hero-actions">
+          <a href="#cta" class="btn btn-primary">Empezar ahora →</a>
+          <a href="#modulos" class="btn btn-ghost">Ver módulos</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <strong>Sin instalación</strong>
+            Listo el mismo día
+          </div>
+          <div>
+            <strong>Multi-dispositivo</strong>
+            Celular · Tablet · PC
+          </div>
+          <div>
+            <strong>Multi-sucursal</strong>
+            Control centralizado
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-wrap">
+        <svg class="mascot-hero" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="60" cy="62" r="48" fill="rgba(94,234,212,0.08)"/>
+          <circle cx="60" cy="64" r="38" fill="#0f172a" stroke="#5eead4" stroke-width="3"/>
+          <circle cx="60" cy="64" r="31" fill="url(#ballGrad2)"/>
+          <ellipse cx="48" cy="48" rx="12" ry="7" fill="rgba(255,255,255,0.22)" transform="rotate(-28 48 48)"/>
+          <circle cx="60" cy="68" r="15" fill="#f8fafc"/>
+          <text x="60" y="74.5" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="20" fill="#0f172a">8</text>
+          <circle cx="47" cy="54" r="4.5" fill="#0f172a"/>
+          <circle cx="73" cy="54" r="4.5" fill="#0f172a"/>
+          <circle cx="48.5" cy="52.5" r="1.6" fill="#5eead4"/>
+          <circle cx="74.5" cy="52.5" r="1.6" fill="#5eead4"/>
+          <path d="M50 76 Q60 84 70 76" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M42 47 Q47 44 52 47" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M68 47 Q73 44 78 47" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <g transform="rotate(28 95 30)">
+            <rect x="88" y="8" width="5.5" height="42" rx="2.5" fill="#a78bfa"/>
+            <rect x="87" y="4" width="7.5" height="8" rx="2" fill="#5eead4"/>
+            <circle cx="90.75" cy="52" r="3" fill="#cbd5e1"/>
+          </g>
+          <circle cx="82" cy="42" r="9" fill="#5eead4"/>
+          <text x="82" y="45.5" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="9" fill="#042f2e">P</text>
+          <defs>
+            <linearGradient id="ballGrad2" x1="30" y1="30" x2="90" y2="95" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#1e293b"/>
+              <stop offset="1" stop-color="#0f172a"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="dashboard" aria-hidden="true">
+          <div class="dash-header">
+            <div class="dash-status">PROBILLAR · OPERANDO</div>
+            <div id="live-time">HOY · --:--</div>
+          </div>
+          <div class="dash-stats">
+            <div class="dash-stat">
+              <label>Mesas activas</label>
+              <div class="value teal">12</div>
+            </div>
+            <div class="dash-stat">
+              <label>Ventas hoy</label>
+              <div class="value purple">S/ 1,847</div>
+            </div>
+          </div>
+          <div class="dash-tables">
+            <div class="table-row">
+              <span>MESA 04 · Pool</span>
+              <span class="time">01:42:18</span>
+            </div>
+            <div class="table-row">
+              <span>MESA 07 · Carambola</span>
+              <span class="time">00:58:04</span>
+            </div>
+            <div class="table-row">
+              <span>MESA 11 · Snooker</span>
+              <span class="time">00:23:51</span>
+            </div>
+            <div class="table-row">
+              <span>Caja del turno</span>
+              <span class="u-l-1">Actualizada</span>
+            </div>
+          </div>
+          <div class="dash-pricing">
+            <div class="price-tag">
+              <span>Mensual</span>
+              <strong>S/ 89</strong>
+            </div>
+            <div class="price-tag">
+              <span>Anual</span>
+              <strong>S/ 890</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ========================================================================
+       3. STRIP
+       ======================================================================== -->
+  <div class="strip">
+    <div class="container strip-grid">
+      <div class="strip-card">
+        <h3>Hecho para billares</h3>
+        <p>Diseñado específicamente para salones de billar, póker, karaokes y juegos de mesa. No es un POS genérico.</p>
+      </div>
+      <div class="strip-card">
+        <h3>Desde S/ 89 al mes</h3>
+        <p>Precio claro, sin sorpresas. Incluye actualizaciones, soporte y almacenamiento en la nube.</p>
+      </div>
+      <div class="strip-card">
+        <h3>Empiezas hoy</h3>
+        <p>Sin instalaciones ni servidores. Te configuramos la cuenta y empiezas a operar el mismo día.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================
+       4. MÓDULOS
+       ======================================================================== -->
+  <section id="modulos">
+    <div class="container">
+      <div class="section-label">Módulos</div>
+      <h2 class="section-title">Todo lo que necesitas para operar un salón profesional.</h2>
+      <p class="section-desc">Sin menús innecesarios. Solo las herramientas que usas todos los días para mantener el control total del negocio.</p>
+
+      <div class="modules-grid">
+        <article class="module-card">
+          <div class="module-icon teal">🎱</div>
+          <h3>Mapa de Mesas</h3>
+          <p>Visualización interactiva del estado de cada mesa en tiempo real.</p>
+          <ul>
+            <li>Libres / Ocupadas / Con cuenta abierta</li>
+            <li>Tiempo de uso automático</li>
+            <li>Colores por estado</li>
+            <li>Mesas de billar, póker o mixtas</li>
+          </ul>
+          <!-- BOTÓN AL DOCUMENTO DE MESAEJEMPLO -->
+          <a href="pages/login.html" class="btn btn-primary u-l-2">Ver Demo de Mesas →</a>
+        </article>
+
+        <article class="module-card">
+          <div class="module-icon purple">⏱</div>
+          <h3>Control de Tiempos</h3>
+          <p>Cálculo automático del tiempo de juego y cobro por hora o por sesión.</p>
+          <ul>
+            <li>Inicio / pausa / cierre de mesa</li>
+            <li>Tarifas configurables por mesa</li>
+            <li>Alertas de tiempo excedido</li>
+            <li>Histórico por turno</li>
+          </ul>
+        </article>
+
+        <article class="module-card">
+          <div class="module-icon teal">🍺</div>
+          <h3>Consumos en Mesa</h3>
+          <p>Agrega comidas, bebidas y productos directamente a la cuenta de la mesa.</p>
+          <ul>
+            <li>Productos vinculados a inventario</li>
+            <li>Pre-cuentas e impresión</li>
+            <li>Múltiples métodos de pago</li>
+            <li>Cupones y descuentos</li>
+          </ul>
+        </article>
+
+        <article class="module-card">
+          <div class="module-icon purple">📦</div>
+          <h3>Inventario Inteligente</h3>
+          <p>Control de stock, alertas de agotamiento y órdenes de compra.</p>
+          <ul>
+            <li>Alertas predictivas</li>
+            <li>Rotación de productos</li>
+            <li>Proveedores y compras</li>
+            <li>Actualización automática</li>
+          </ul>
+          <!-- BOTÓN AL MÓDULO DE INVENTARIO -->
+          <a href="#inventario-demo" class="btn btn-primary u-l-2">Probar Inventario Demo ↓</a>
+        </article>
+
+        <article class="module-card">
+          <div class="module-icon teal">💰</div>
+          <h3>Caja & Finanzas</h3>
+          <p>Cortes de caja por turno, gastos y resultados en tiempo real.</p>
+          <ul>
+            <li>Arqueos y diferencias</li>
+            <li>Gastos registrados</li>
+            <li>Reportes de ingresos</li>
+            <li>Caja que no miente</li>
+          </ul>
+        </article>
+
+        <article class="module-card">
+          <div class="module-icon purple">📊</div>
+          <h3>Reportes Avanzados</h3>
+          <p>Dashboards con métricas clave para tomar mejores decisiones.</p>
+          <ul>
+            <li>Ocupación por mesa y horario</li>
+            <li>Productos más vendidos</li>
+            <li>Ingresos vs gastos</li>
+            <li>Exportación de datos</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       MINI INVENTARIO EN VIVO (MÓDULO DE CONTROL DE STOCK)
+       ======================================================================== -->
+  <section id="inventario-demo" class="inventory-section">
+    <div class="container">
+      <div class="section-label">Módulo en Vivo</div>
+      <h2 class="section-title">Control de Inventario & Stock en Tiempo Real</h2>
+      <p class="section-desc">Gestiona tus insumos, bebidas y botanas de manera ágil con alertas automáticas de bajo stock.</p>
+
+      <div class="inventory-card">
+        <!-- Tarjetas de métricas rápidas -->
+        <div class="inv-stats">
+          <div class="inv-stat-box">
+            <label>Total de Productos</label>
+            <div class="val" id="inv-total-items">0</div>
+          </div>
+          <div class="inv-stat-box">
+            <label>Valor Total en Stock</label>
+            <div class="val" id="inv-total-val">S/ 0.00</div>
+          </div>
+          <div class="inv-stat-box">
+            <label>Alertas de Stock Bajo</label>
+            <div class="val warning" id="inv-low-alerts">0</div>
+          </div>
+        </div>
+
+        <!-- Formulario para agregar producto -->
+        <form class="inv-form" id="inv-add-form" onsubmit="addInventoryItem(event)">
+          <div class="inv-form-group">
+            <label>Producto</label>
+            <input type="text" id="inv-name" placeholder="Ej. Cerveza Personal" required>
+          </div>
+          <div class="inv-form-group">
+            <label>Categoría</label>
+            <select id="inv-cat">
+              <option value="Bebidas">Bebidas</option>
+              <option value="Comidas">Comidas</option>
+              <option value="Accesorios">Accesorios</option>
+            </select>
+          </div>
+          <div class="inv-form-group">
+            <label>Precio (S/)</label>
+            <input type="number" id="inv-price" step="0.5" placeholder="8.00" required>
+          </div>
+          <div class="inv-form-group">
+            <label>Stock Inicial</label>
+            <input type="number" id="inv-stock" placeholder="24" required>
+          </div>
+          <div class="inv-form-group">
+            <label>Stock Mínimo</label>
+            <input type="number" id="inv-min" placeholder="5" required>
+          </div>
+          <button type="submit" class="btn btn-primary u-l-3">+ Agregar</button>
+        </form>
+
+        <!-- Tabla de Inventario -->
+        <div class="inv-table-wrap">
+          <table class="inv-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio Unit.</th>
+                <th>Stock Actual</th>
+                <th>Estado</th>
+                <th>Ajustar Stock</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="inv-table-body">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       5. PROBLEMAS + SOLUCIÓN
+       ======================================================================== -->
+  <section id="problemas" class="problems">
+    <div class="container">
+      <div class="section-label">Problemas reales</div>
+      <h2 class="section-title">Los dolores diarios de un salón de billar.</h2>
+      <p class="section-desc">Sabemos exactamente qué te quita el sueño. Por eso ProBillar fue pensado para eliminarlos uno por uno.</p>
+
+      <div class="problems-grid">
+        <div class="problem-list">
+          <div class="problem-item">
+            <div class="icon">!</div>
+            <div>
+              <strong>Robos hormiga y faltantes</strong>
+              <p class="u-l-4">Productos que “desaparecen” y cortes de caja que no cuadran.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="icon">!</div>
+            <div>
+              <strong>Clientes que no reconocen el tiempo</strong>
+              <p class="u-l-4">Discusiones por “cuánto tiempo llevaban” en la mesa.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="icon">!</div>
+            <div>
+              <strong>Empleados deshonestos o desordenados</strong>
+              <p class="u-l-4">Difícil controlar lo que pasa cuando no estás en el local.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="icon">!</div>
+            <div>
+              <strong>Papel, Excel y cuentas a mano</strong>
+              <p class="u-l-4">Información dispersa, errores y pérdida de tiempo al cerrar.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="icon">!</div>
+            <div>
+              <strong>Sin visión real del negocio</strong>
+              <p class="u-l-4">No sabes qué mesas generan más, qué productos rotan o cómo cerró el mes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="solution-box">
+          <h3>La solución ProBillar</h3>
+          <ul>
+            <li>Control total de tiempos de cada mesa con registro automático</li>
+            <li>Consumos y productos vinculados al inventario en tiempo real</li>
+            <li>Cortes de caja claros, sin “se me perdió la boleta”</li>
+            <li>Monitoreo desde cualquier lugar (casa, vacaciones, otro local)</li>
+            <li>Reportes de ocupación, ventas y rentabilidad al instante</li>
+            <li>Multi-sucursal: cada local con sus datos, un solo sistema</li>
+            <li>Sin instalaciones. Solo navegador y listo</li>
+          </ul>
+          <a href="#cta" class="btn btn-primary u-l-5">Quiero esta solución</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       6. BENEFICIOS
+       ======================================================================== -->
+  <section id="beneficios">
+    <div class="container">
+      <div class="section-label">Beneficios</div>
+      <h2 class="section-title">Más control. Más tranquilidad. Más crecimiento.</h2>
+      <p class="section-desc">Cuando el sistema trabaja por ti, puedes enfocarte en lo que realmente importa: tus clientes y tu familia.</p>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="num">01</div>
+          <h3>Operación clara</h3>
+          <p>Sabes exactamente cuánto entró y cuánto salió al cerrar cada turno. Sin sorpresas.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="num">02</div>
+          <h3>Delegas con confianza</h3>
+          <p>Monitorea desde el celular. Tus empleados trabajan con el sistema, no contra él.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="num">03</div>
+          <h3>Crece sin caos</h3>
+          <p>Abre más sucursales o agrega mesas sin perder el control de la operación.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="num">04</div>
+          <h3>Menos robos y faltantes</h3>
+          <p>Inventario y caja en tiempo real reducen los “robos hormiga” y diferencias.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="num">05</div>
+          <h3>Decisiones con datos</h3>
+          <p>Reportes de ocupación, productos estrella e ingresos por mesa para optimizar.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="num">06</div>
+          <h3>Más tiempo libre</h3>
+          <p>Menos horas haciendo cuentas a mano. Más tiempo para ti y tu familia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       7. PRECIOS
+       ======================================================================== -->
+  <section id="precios">
+    <div class="container">
+      <div class="section-label">Precios</div>
+      <h2 class="section-title">Planes claros para salones de todos los tamaños.</h2>
+      <p class="section-desc">Sin costos ocultos. Incluye soporte, actualizaciones y almacenamiento en la nube.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Mensual</h3>
+          <div class="amount">S/ 89 <span>/mes</span></div>
+          <p class="period">Facturación mensual · Cancela cuando quieras</p>
+          <ul>
+            <li>Control de tiempos por mesa</li>
+            <li>Mapa de mesas interactivo</li>
+            <li>Ventas y consumos</li>
+            <li>Inventario básico</li>
+            <li>Cortes de caja</li>
+            <li>Acceso multi-dispositivo</li>
+            <li>Soporte por WhatsApp</li>
+          </ul>
+          <a href="#cta" class="btn btn-ghost">Solicitar</a>
+        </div>
+
+        <div class="price-card featured">
+          <h3>Anual</h3>
+          <div class="amount">S/ 890 <span>/año</span></div>
+          <p class="period">Equivale a ~S/ 74 al mes · 2 meses gratis</p>
+          <ul>
+            <li>Todo lo del plan Mensual</li>
+            <li>Inventario inteligente + alertas</li>
+            <li>Módulo de compras y proveedores</li>
+            <li>Reportes avanzados y exportación</li>
+            <li>Multi-sucursal</li>
+            <li>Prioridad en soporte</li>
+            <li>Actualizaciones constantes</li>
+          </ul>
+          <a href="#cta" class="btn btn-primary">Elegir plan anual</a>
+        </div>
+
+        <div class="price-card">
+          <h3>Enterprise</h3>
+          <div class="amount">A medida</div>
+          <p class="period">Para cadenas y operaciones grandes</p>
+          <ul>
+            <li>Personalización de procesos</li>
+            <li>Integraciones a medida</li>
+            <li>Multi-sucursal ilimitado</li>
+            <li>Capacitación al equipo</li>
+            <li>Implementación acompañada</li>
+            <li>SLA de soporte prioritario</li>
+            <li>Módulos avanzados bajo demanda</li>
+          </ul>
+          <a href="#cta" class="btn btn-ghost">Cotizar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       8. FAQ
+       ======================================================================== -->
+  <section id="preguntas">
+    <div class="container faq-layout">
+      <div>
+        <div class="section-label">Preguntas</div>
+        <h2 class="section-title">¿Tienes dudas?</h2>
+        <p class="section-desc">Te acompañamos desde el primer día. El sistema es intuitivo y el soporte está siempre disponible.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-question" aria-expanded="true">
+            ¿Tengo que instalar algo?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>No. ProBillar funciona 100% en la nube. Solo abres el navegador desde tu celular, tablet o computadora e ingresas con tu usuario.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Cuánto demora la configuración?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>En la mayoría de casos dejamos tu cuenta lista el mismo día. Configuramos mesas, tarifas, productos y usuarios según tu operación.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Puedo usarlo en varios dispositivos a la vez?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Sí. Al estar en la nube puedes usarlo en tantos equipos como necesites (caja, bar, oficina, celular del dueño) sin costo adicional por dispositivo.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Funciona si no sé de sistemas?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Sí. La interfaz es simple y pensada para el día a día del salón. Además te capacitamos y damos soporte por WhatsApp desde el primer día.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Puedo tener más de un local?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Sí. El plan Anual y Enterprise permiten multi-sucursal. Cada local tiene sus datos separados y tú ves todo desde un solo panel.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Qué pasa con mi información si cancelo?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Tu información es confidencial. Si decides cancelar te entregamos un respaldo de tus datos (Excel o similar) y se elimina de nuestros servidores según la política de privacidad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       9. CTA FINAL
+       ======================================================================== -->
+  <section class="cta" id="cta">
+    <div class="container">
+      <div class="cta-box">
+
+        <svg class="mascot-cta" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="60" cy="62" r="46" fill="rgba(94,234,212,0.1)"/>
+          <circle cx="60" cy="64" r="36" fill="#0f172a" stroke="#5eead4" stroke-width="2.8"/>
+          <circle cx="60" cy="64" r="29" fill="url(#ballGrad3)"/>
+          <ellipse cx="49" cy="50" rx="10" ry="6" fill="rgba(255,255,255,0.2)" transform="rotate(-26 49 50)"/>
+          <circle cx="60" cy="67" r="13.5" fill="#f8fafc"/>
+          <text x="60" y="72.5" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="17" fill="#0f172a">8</text>
+          <circle cx="48" cy="55" r="4" fill="#0f172a"/>
+          <circle cx="72" cy="55" r="4" fill="#0f172a"/>
+          <circle cx="49.3" cy="53.7" r="1.4" fill="#5eead4"/>
+          <circle cx="73.3" cy="53.7" r="1.4" fill="#5eead4"/>
+          <path d="M51 74 Q60 81 69 74" stroke="#0f172a" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+          <path d="M43 49 Q48 46 53 49" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <path d="M67 49 Q72 46 77 49" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+          <g transform="rotate(25 92 28)">
+            <rect x="86" y="10" width="5" height="36" rx="2.2" fill="#a78bfa"/>
+            <rect x="85" y="6" width="7" height="7" rx="1.8" fill="#5eead4"/>
+          </g>
+          <circle cx="80" cy="42" r="8" fill="#5eead4"/>
+          <text x="80" y="45.2" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="8" fill="#042f2e">P</text>
+          <defs>
+            <linearGradient id="ballGrad3" x1="32" y1="32" x2="88" y2="92" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#1e293b"/>
+              <stop offset="1" stop-color="#0f172a"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <h2>Tu salón puede empezar a operar con claridad desde hoy.</h2>
+        <p>Déjanos tus datos y te activamos una demo o te configuramos la cuenta. Sin compromiso y con acompañamiento desde el primer día.</p>
+        <div class="cta-actions">
+          <a href="https://wa.me/51906639474?text=Hola%2C%20quiero%20información%20sobre%20ProBillar" class="btn btn-primary" target="_blank" rel="noopener">
+            Hablar por WhatsApp
+          </a>
+          <a href="mailto:hola@probillar.com" class="btn btn-ghost">Enviar correo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================
+       10. FOOTER
+       ======================================================================== -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        © 2026 ProBillar · Sistema profesional para salones de billar
+      </div>
+      <div class="footer-links">
+        <a href="#modulos">Módulos</a>
+        <a href="#precios">Precios</a>
+        <a href="#preguntas">Preguntas</a>
+        <a href="#">Privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Scripts Base -->
+  <script src="assets/js/landing/main.js?v=20261113"></script>
+  <!-- Inventario demo -->
+  <script src="assets/js/landing/inventory-demo.js?v=20261113"></script>
+</body>
+</html>
